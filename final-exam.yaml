@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: final-exam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: final-exam
+  template:
+    metadata:
+      labels:
+        app: final-exam
+    spec:
+      containers:
+      - name: final-exam-container
+        image: nvrbckdown/flask-app:final-exam
+        ports:
+        - containerPort: 80
+        env:
+        - name: AUTHOR
+          value: "ALISHER"
+        - name: POD
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+

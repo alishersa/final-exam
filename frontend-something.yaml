@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-something
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-something
+  template:
+    metadata:
+      labels:
+        app: frontend-something
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: node2
+      containers:
+      - name: frontend-container
+        image: nvrbckdown/something
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          tcpSocket:
+            port: 80
+
